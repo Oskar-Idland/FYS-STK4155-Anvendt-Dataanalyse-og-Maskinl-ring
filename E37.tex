@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{ucs}
+\usepackage{mathtools} %for \abs{x}
+\usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+% \setmainfont{TeX Gyre Schola}
+% \setmathfont{TeX Gyre Schola Math}
+% \usepackage[utf8x]{inputenc}
+\usepackage{fontenc}
+\usepackage[margin=1.5in]{geometry}
+\usepackage{enumerate}
+\newtheorem{theorem}{Theorem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\setlength{\parindent}{0cm}
+\usepackage{graphics}
+\usepackage{graphicx} % Required for including images
+\usepackage{subcaption}
+\usepackage{bigintcalc}
+\usepackage{pythonhighlight} %for pythonkode \begin{python}   \end{python}
+\usepackage{appendix}
+\usepackage{arydshln}
+\usepackage{physics}
+\usepackage{booktabs} 
+\usepackage{adjustbox}
+\usepackage{mdframed}
+\usepackage{relsize}
+\usepackage{physics}
+\usepackage[thinc]{esdiff}
+\usepackage{esint}  %for lukket-linje-integral
+\usepackage{xfrac} %for sfrac
+\usepackage[colorlinks=true,linktoc=page]{hyperref} %for linker, må ha med hypersetup
+\usepackage[noabbrev, nameinlink]{cleveref} % to be loaded after hyperref
+% \usepackage{amssymb} %\mathbb{R} for reelle tall, \mathcal{B} for "matte"-font
+\usepackage{listings} %for kode/lstlisting
+\usepackage{verbatim}
+\usepackage{graphicx,wrapfig,lipsum,caption} %for wrapping av bilder
+\usepackage[english]{babel}
+\usepackage{cancel}
+% \usepackage{alphabeta}
+\usepackage{mhchem} % for atom notasjon
+% \definecolor{codegreen}{rgb}{0,0.6,0}
+% \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+% \definecolor{codepurple}{rgb}{0.58,0,0.82}
+% \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+% \lstdefinestyle{mystyle}{
+%     backgroundcolor=\color{backcolour},   
+%     commentstyle=\color{codegreen},
+%     keywordstyle=\color{magenta},
+%     numberstyle=\tiny\color{codegray},
+%     stringstyle=\color{codepurple},
+%     basicstyle=\ttfamily\footnotesize,
+%     breakatwhitespace=false,         
+%     breaklines=true,                 
+%     captionpos=b,                    
+%     keepspaces=true,                 
+%     numbers=left,                    
+%     numbersep=5pt,                  
+%     showspaces=false,                
+%     showstringspaces=false,
+%     showtabs=false,                  
+%     tabsize=2
+% }
+
+% \lstset{style=mystyle}
+\author{Oskar Idland}
+\title{Exercises Week 37}  
+\date{}
+\begin{document}
+\maketitle
+%\tableofcontents
+\newpage
+
+\section*{Exercise 1} 
+As we are working with a normally distributed error $ \mathbf{\pmb{ε}} ∼ N(0, σ^2)$ we know the expectation value of the $i$'th element of $\pmb{ε}$ is $0$ with a variance of $σ^2$. With our approximation of $f(\mathbf{x})$ as $\tilde{\mathbf{y}} = \mathbf{X}\pmb{β}$, we get an expectation value of the following:
+\[
+\mathbb{E}(\mathbf{y}) = \mathbb{E}(\mathbf{X}\pmb{β}) + \mathbb{E} (\pmb{ε}) = \mathbb{E}(\mathbf{X}\pmb{β}) 
+\]
+
+The $i$'th element of $\mathbf{y}$ has an expectation value of the following:
+
+\[
+\mathbb{E}(y_i) = \mathbb{E}\left(∑_{j}^{} X_{ij}\pmb{β}_j\right) = ∑_{j}^{} X_{ij}\pmb{β}_j = \mathbf{X}_{i,*}\pmb{β}
+\]
+
+The variation becomes:
+\[
+\operatorname{Var}(y_i) = \operatorname{Var}\left(\mathbf{X}_{i*}\pmb{β}\right) + \operatorname{Var}(\pmb{ε}_i) = σ^2
+\]
+
+With this we know that:
+\[
+y_i ∼ N(\mathbf{X}_{i,*\pmb{β}, σ^2}) 
+\]
+
+In the OLS, we know the optimal parameters to be: 
+\[
+\pmb{β}_{\text{OLS}} = \left(\mathbf{X}^{T}\mathbf{X}\right)^{-1} \mathbf{X}^{T}\mathbf{y}
+\]
+with an expectation value of:
+\[
+\mathbb{E}\left(\pmb{β}_{\text{OLS}}\right) = \mathbb{E}\left(\left(\mathbf{X}^{T}\mathbf{X}\right)^{-1} \mathbf{X}^{T}\mathbf{y}\right) = \mathbb{E}\left(\left(\mathbf{X}^{T}\mathbf{X}\right)^{-1} \mathbf{X}^{T}\right) \mathbb{E}(\mathbf{y}) = \left(\mathbf{X}^{T}\mathbf{X}\right)^{-1} \mathbf{X}^{T}\mathbf{X}\pmb{β}
+\]
+
+If $x$ and $y$ are independent variables, we know the variance of their product to be:
+\begin{align*}
+\operatorname{Var}(xy) &= \mathbb{E}\left(x^2y^2\right) - \left(\mathbb{E}(xy)\right)^2 \\
+&= \mathbb{E}(x^2)\mathbb{E}(y^2) - \left(\mathbb{E}(x)\right)^2\left(\mathbb{E}(y)\right)^2,
+\\
+&= \left[\mathbb{E}(x^2) - \left(\mathbb{E}(x)\right)^2 + \left(\mathbb{E}(x)\right)^2\right]\left[\mathbb{E}(y^2) - \left(\mathbb{E}(y)\right)^2 + \left(\mathbb{E}(y)\right)^2\right] - \mathbb{E}(x^2)\mathbb{E}(y^2),
+\\
+&= \left[\textrm{Var}(x) + \left(\mathbb{E}(x)\right)^2\right]\left[\textrm{Var}(y) + \left(\mathbb{E}(y)\right)^2\right] - \mathbb{E}(x^2)\mathbb{E}(y^2), \\
+&= \textrm{Var}(x)\textrm{Var}(y) + \textrm{Var}(x)(\mathbb{E}(y))^2 + \textrm{Var}(y)(\mathbb{E}(x))^2 +\mathbb{E}(x^2)\mathbb{E}(y^2)- \mathbb{E}(x^2)\mathbb{E}(y^2),
+\\
+&= \textrm{Var}(x)\textrm{Var}(y) + \textrm{Var}(x)(\mathbb{E}(y))^2 + \textrm{Var}(y)(\mathbb{E}(x))^2 
+\end{align*}
+
+Inserting $x = \left(\mathbf{X}^{T}\mathbf{X}\right)^{-1} \mathbf{X}^{T}$ and $y = \mathbf{y}$, we can find the variance of $\pmb{β}_{\text{OLS}}$. We use the fact that $\left(\mathbf{X}^{T}\mathbf{X}\right)^{-1}$ is itself as the matrix is square and symmetric. 
+
+\begin{align*}
+    \textrm{Var}(\boldsymbol{\beta}_\textrm{OLS}) 
+    &= \underbrace{\textrm{Var}\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right]\textrm{Var}(\mathbf{y})}_0 
+    + \underbrace{\textrm{Var}\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right](\mathbb{E}(\mathbf{y}))^2}_{0} 
+    + \textrm{Var}(\mathbf{y})\left(\mathbb{E}\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right]\right)^2
+    \\
+    &= \sigma^2\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right]^2
+    \\
+    &= \sigma^2\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right]\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right]^\textrm{T}
+    \\
+    &= \sigma^2\left[\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\mathbf{X}^\textrm{T}\right]\left[\mathbf{X}\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}\right]
+    \\
+    &= \sigma^2\left(\mathbf{X}^\textrm{T}\mathbf{X}\right)^{-1}
+    \end{align*}
+
+\section*{Exercise 2}
+By using the same approach as in the previous exercise, we can show that 
+\[
+\mathbb{E}(\mathbf{y}) = \mathbb{E}(\mathbf{X}\pmb{β}) = \mathbf{X}\pmb{β}
+\]
+and that 
+\[
+\operatorname{Var}(\mathbf{y}) = \operatorname{Var}(\pmb{ε}) = σ^2 
+\]
+for the ridge regression as well as the the OLS. We use the same method again:
+\[
+\mathbb{E}(\pmb{β}_{\text{Ridge}}) = \mathbb{E}\left(\left(\mathbf{X}^{T}\mathbf{X} + λ \mathbf{I}_{pp}\right)^{-1} \mathbf{X}^{T}\mathbf{y}\right) = \mathbb{E}\left(\left(\mathbf{X}^{T}\mathbf{X} + λ \mathbf{I}_{pp}\right)^{-1} \mathbf{X}^{T}\right) \mathbb{E}(\mathbf{y}) = \left(\mathbf{X}^{T}\mathbf{X} + λ \mathbf{I}_{pp}\right)^{-1} \mathbf{X}^{T}\mathbf{X}\pmb{β}
+\]
+
+The variance then becomes:
+\begin{align*}
+    \textrm{Var}(\boldsymbol{\beta}_\textrm{Ridge}) 
+    &= \underbrace{\textrm{Var}\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)\textrm{Var}(\mathbf{y})}_0 
+    + \underbrace{\textrm{Var}\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)(\mathbb{E}(\mathbf{y}))^2}_{0} 
+    + \textrm{Var}(\mathbf{y})\left(\mathbb{E}\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)\right)^2
+    \\
+    &= \sigma^2\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)^2
+    \\
+    &= \sigma^2\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)^\textrm{T}
+    \\
+    &= \sigma^2\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\right)\left(\mathbf{X}\left\{\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\right\}^\textrm{T}\right)
+    \\
+    &= \sigma^2\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\mathbf{X}^\textrm{T}\mathbf{X}\left(\left(\mathbf{X}^\textrm{T}\mathbf{X}+ \lambda\mathbf{I}_{p\times p}\right)^{-1}\right)^\textrm{T}
+\end{align*}
+
+\[
+\pmb{ε}
+\]
+\end{document}
